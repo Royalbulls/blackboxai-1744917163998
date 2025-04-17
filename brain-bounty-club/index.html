@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brain Bounty Club - Learn. Compete. Win.</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAB+UlEQVR4AWJwL/ABtF1bW9YGgigM/yaQQEKABEiABEiABEiABEiABEiABEiABEiABEiABEiABEiABEiAhKS9u70P7aPdfWDP+c7cO3e+0UwmY1WpVN6VSqWkWCx+KBQKX/L5/Mds9lculztLp9MfU6nUp2Qy+TmRSHyLx+M/Y7HYr2g0+jsScQaDwWQ4HHaHw6F7NBpZo9EIjEYjmE6nMJvNYD6fw2KxgOVyCavVCtbrNWw2G9hutwC2bQPsdjs4HA5wPB4BTqcTnE4nOJ/P4HK5wPV6BbfbDW63G9xuN/B4POD1esHr9YLP5wO/3w8CgQAEg0EIhUIQDochHA5DJBKBaDQKsVgM4vE4JBIJSCaTkEqlIJ1OQyaTgWw2C7lcDvL5PBQKBSgWi1AqlaBarUKtVoN6vQ6NRgOazSa0Wi1ot9vQ6XSg2+1Cr9eDfr8Pg8EAhsMhQwwZDocLRhiNRjAej2EymcB0OoXZbAbz+RwWiwUsl0tYrVawXq9hs9nAdrsFt9sN3G43cLlcwO12A4/HA16vF3w+H/j9fggEAhAMBiEUCkE4HIZIJALRaBRisRjE43FIJBKQTCYhlUpBOp2GTCbD0Pl8HgqFAhSLRSiVSlCtVqFWq0G9XodGowHNZhNarRa02+0/0Ol0oNvtQq/X+z9Av98HGOEvLhkwWvv+zGcAAAAASUVORK5CYII=">
+    
+    
+    
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1A3A8C',
+                        accent: '#FFB700',
+                    },
+                    fontFamily: {
+                        montserrat: ['Montserrat', 'sans-serif'],
+                        opensans: ['Open Sans', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-opensans">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/" class="flex items-center">
+                        <span class="text-2xl">
+                            <span class="font-bold text-primary">BRAIN</span>
+                            <span class="italic text-accent">BOUNTY</span>
+                            <span class="uppercase text-primary">CLUB</span>
+                        </span>
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="/pages/quizzes.html" class="text-primary hover:text-accent px-3 py-2 rounded-md font-medium">Quizzes</a>
+                    <a href="/pages/courses.html" class="text-primary hover:text-accent px-3 py-2 rounded-md font-medium">Courses</a>
+                    <a href="/pages/profile/dashboard.html" class="text-primary hover:text-accent px-3 py-2 rounded-md font-medium">Profile</a>
+                    <a href="/pages/profile/wallet.html" class="flex items-center text-primary hover:text-accent px-3 py-2 rounded-md font-medium">
+                        <i class="fas fa-coins mr-2"></i>
+                        <span id="coinBalance">0</span>
+                    </a>
+                    <button onclick="window.location.href='/pages/payments/checkout.html'" class="bg-primary text-white hover:bg-accent px-4 py-2 rounded-md font-medium transition duration-300">
+                        Join Now
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-primary hover:text-accent">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="/pages/quizzes.html" class="block text-primary hover:text-accent px-3 py-2 rounded-md font-medium">Quizzes</a>
+                <a href="/pages/courses.html" class="block text-primary hover:text-accent px-3 py-2 rounded-md font-medium">Courses</a>
+                <a href="/pages/profile/dashboard.html" class="block text-primary hover:text-accent px-3 py-2 rounded-md font-medium">Profile</a>
+                <a href="/pages/profile/wallet.html" class="flex items-center text-primary hover:text-accent px-3 py-2 rounded-md font-medium">
+                    <i class="fas fa-coins mr-2"></i>
+                    <span>0</span>
+                </a>
+                <button onclick="window.location.href='/pages/payments/checkout.html'" class="w-full bg-primary text-white hover:bg-accent px-4 py-2 rounded-md font-medium transition duration-300">
+                    Join Now
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-16 bg-gradient-to-r from-primary to-blue-900 min-h-screen flex items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-6xl font-montserrat font-bold text-white mb-6">
+                    Welcome to Brain Bounty Club
+                </h1>
+                <p class="text-xl md:text-2xl text-accent font-montserrat mb-8">
+                    Learn. Compete. Win.
+                </p>
+                <p class="text-lg text-gray-200 mb-12 max-w-2xl mx-auto">
+                    Join India's most exciting learning & quiz club! Participate in free quizzes, access courses, win prizes & boost your career with student success tools.
+                </p>
+                <div class="space-x-4">
+                    <a href="/pages/quizzes.html" class="bg-accent text-primary hover:bg-yellow-400 px-8 py-3 rounded-full font-bold inline-block mb-4 md:mb-0">
+                        Start Quiz
+                    </a>
+                    <a href="/pages/courses.html" class="bg-white text-primary hover:bg-gray-100 px-8 py-3 rounded-full font-bold inline-block">
+                        Browse Courses
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-montserrat font-bold text-primary text-center mb-12">
+                Why Choose Brain Bounty Club?
+            </h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                    <div class="text-4xl text-accent mb-4">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3 class="text-xl font-montserrat font-bold text-primary mb-4">Weekly Quizzes</h3>
+                    <p class="text-gray-600">Participate in exciting quizzes and win BBC coins to redeem amazing rewards.</p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                    <div class="text-4xl text-accent mb-4">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="text-xl font-montserrat font-bold text-primary mb-4">Expert Courses</h3>
+                    <p class="text-gray-600">Access high-quality courses designed by industry experts to boost your skills.</p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                    <div class="text-4xl text-accent mb-4">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <h3 class="text-xl font-montserrat font-bold text-primary mb-4">Reward System</h3>
+                    <p class="text-gray-600">Earn BBC coins for your achievements and redeem them for exciting rewards.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <!-- Brand -->
+                <div>
+                    <h3 class="text-2xl font-bold mb-4">Brain Bounty Club</h3>
+                    <p class="text-gray-300">Making education fun, meaningful, and rewarding.</p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="/pages/quizzes.html" class="text-gray-300 hover:text-accent">Quizzes</a></li>
+                        <li><a href="/pages/courses.html" class="text-gray-300 hover:text-accent">Courses</a></li>
+                        <li><a href="/pages/profile/wallet.html" class="text-gray-300 hover:text-accent">BBC Coins</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Social Links -->
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Connect With Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="https://telegram.me/BrainBountyClub" class="text-gray-300 hover:text-accent text-2xl">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <a href="https://instagram.com/brainbountyclub" class="text-gray-300 hover:text-accent text-2xl">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://youtube.com/BrainBountyClubOfficial" class="text-gray-300 hover:text-accent text-2xl">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Contact Us</h4>
+                    <p class="text-gray-300">Have questions? Reach out to us!</p>
+                    <a href="mailto:contact@brainbountyclub.in" class="text-accent hover:text-yellow-400">
+                        contact@brainbountyclub.in
+                    </a>
+                </div>
+            </div>
+            
+            <div class="mt-8 pt-8 border-t border-gray-700 text-center">
+                <p class="text-gray-300">&copy; 2024 Brain Bounty Club. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/app.js"></script>
+</body>
+</html>
