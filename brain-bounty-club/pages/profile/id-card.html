@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital ID Card - Brain Bounty Club</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- html2canvas for ID card download -->
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../css/styles.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1A3A8C',
+                        accent: '#FFB700',
+                    },
+                    fontFamily: {
+                        montserrat: ['Montserrat', 'sans-serif'],
+                        opensans: ['Open Sans', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-opensans bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/" class="flex items-center">
+                        <span class="text-2xl">
+                            <span class="font-bold text-primary">BRAIN</span>
+                            <span class="italic text-accent">BOUNTY</span>
+                            <span class="uppercase text-primary">CLUB</span>
+                        </span>
+                    </a>
+                </div>
+                
+                <!-- Coin Balance -->
+                <div class="flex items-center">
+                    <div class="text-primary px-4 py-2 rounded-md font-medium">
+                        <i class="fas fa-coins text-accent"></i>
+                        <span id="coinBalance">0</span> BBC Coins
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="pt-20 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Left Column - ID Card Form -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h2 class="text-2xl font-montserrat font-bold text-primary mb-6">
+                        Generate Your Digital ID Card
+                    </h2>
+                    <form id="idCardForm" class="space-y-6">
+                        <!-- Photo Upload -->
+                        <div>
+                            <label class="block text-gray-700 mb-2">Profile Photo</label>
+                            <div class="flex items-center space-x-4">
+                                <div class="w-24 h-24 bg-gray-100 rounded-full overflow-hidden">
+                                    <img id="previewImage" src="https://via.placeholder.com/96" alt="Profile Preview" class="w-full h-full object-cover">
+                                </div>
+                                <div>
+                                    <label class="cursor-pointer bg-primary text-white hover:bg-accent px-4 py-2 rounded-md font-medium transition duration-300">
+                                        <input type="file" id="photoInput" accept="image/*" class="hidden">
+                                        Upload Photo
+                                    </label>
+                                    <p class="text-sm text-gray-500 mt-2">Max size: 2MB</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Personal Details -->
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-gray-700 mb-2">Full Name</label>
+                                <input type="text" id="fullName" class="w-full border rounded-md px-3 py-2 focus:outline-none focus:border-primary" placeholder="Enter your full name">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 mb-2">BBC ID</label>
+                                <input type="text" id="bbcId" class="w-full border rounded-md px-3 py-2 bg-gray-50" readonly>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 mb-2">Email</label>
+                                <input type="email" id="email" class="w-full border rounded-md px-3 py-2 focus:outline-none focus:border-primary" placeholder="Enter your email">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 mb-2">Membership Type</label>
+                                <select id="membershipType" class="w-full border rounded-md px-3 py-2 focus:outline-none focus:border-primary">
+                                    <option value="basic">Basic Member</option>
+                                    <option value="pro">Pro Member</option>
+                                    <option value="premium">Premium Member</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Generate Button -->
+                        <button type="submit" class="w-full bg-primary text-white hover:bg-accent px-6 py-3 rounded-md font-medium transition duration-300">
+                            Generate ID Card
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Right Column - ID Card Preview -->
+                <div>
+                    <h2 class="text-2xl font-montserrat font-bold text-primary mb-6">
+                        ID Card Preview
+                    </h2>
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <!-- ID Card Container -->
+                        <div id="idCard" class="id-card mx-auto">
+                            <div class="flex items-start justify-between mb-4">
+                                <div>
+                                    <h3 class="text-lg font-bold" id="previewName">Your Name</h3>
+                                    <p class="text-sm opacity-75" id="previewId">BBC ID</p>
+                                </div>
+                                <img id="previewPhoto" src="https://via.placeholder.com/48" alt="Profile" class="w-12 h-12 rounded-full">
+                            </div>
+                            <div class="space-y-2">
+                                <p class="text-sm opacity-75" id="previewEmail">email@example.com</p>
+                                <p class="text-sm">
+                                    <span class="opacity-75">Membership: </span>
+                                    <span id="previewMembership" class="badge badge-accent">Basic</span>
+                                </p>
+                                <p class="text-sm opacity-75">
+                                    Member Since: <span id="previewDate"></span>
+                                </p>
+                            </div>
+                            <div class="absolute bottom-4 right-4">
+                                <div class="text-white text-xs opacity-75">
+                                    Brain Bounty Club
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Download Options -->
+                        <div class="mt-6 space-y-4">
+                            <button onclick="downloadIDCard('png')" class="w-full bg-accent text-primary hover:bg-yellow-400 px-6 py-3 rounded-md font-medium transition duration-300">
+                                Download as PNG
+                            </button>
+                            <button onclick="downloadIDCard('pdf')" class="w-full border-2 border-primary text-primary hover:bg-gray-50 px-6 py-3 rounded-md font-medium transition duration-300">
+                                Download as PDF
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="../../js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('idCardForm');
+            const photoInput = document.getElementById('photoInput');
+            const previewImage = document.getElementById('previewImage');
+            const previewPhoto = document.getElementById('previewPhoto');
+
+            // Generate random BBC ID
+            const bbcId = document.getElementById('bbcId');
+            bbcId.value = 'BBC' + Math.floor(100000 + Math.random() * 900000);
+
+            // Set current date
+            const currentDate = new Date().toLocaleDateString('en-US', {
+                month: 'long',
+                year: 'numeric'
+            });
+            document.getElementById('previewDate').textContent = currentDate;
+
+            // Handle photo upload
+            photoInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    if (file.size > 2 * 1024 * 1024) {
+                        showMessage('File size should be less than 2MB', 'error');
+                        return;
+                    }
+
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewImage.src = e.target.result;
+                        previewPhoto.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Handle form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                updatePreview();
+                showMessage('ID Card generated successfully!', 'success');
+            });
+
+            // Update preview on input change
+            form.querySelectorAll('input, select').forEach(input => {
+                input.addEventListener('input', updatePreview);
+            });
+
+            function updatePreview() {
+                document.getElementById('previewName').textContent = 
+                    document.getElementById('fullName').value || 'Your Name';
+                document.getElementById('previewId').textContent = 
+                    document.getElementById('bbcId').value;
+                document.getElementById('previewEmail').textContent = 
+                    document.getElementById('email').value || 'email@example.com';
+                document.getElementById('previewMembership').textContent = 
+                    document.getElementById('membershipType').value.charAt(0).toUpperCase() + 
+                    document.getElementById('membershipType').value.slice(1);
+            }
+        });
+
+        // Download ID Card
+        async function downloadIDCard(format = 'png') {
+            const idCard = document.getElementById('idCard');
+            
+            try {
+                const canvas = await html2canvas(idCard, {
+                    scale: 2,
+                    backgroundColor: null
+                });
+
+                if (format === 'png') {
+                    const link = document.createElement('a');
+                    link.download = 'bbc-id-card.png';
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                } else if (format === 'pdf') {
+                    // Convert to PDF using a PDF library
+                    // This is a placeholder - you would need to implement PDF conversion
+                    showMessage('PDF download coming soon!', 'info');
+                }
+
+                showMessage('ID Card downloaded successfully!', 'success');
+            } catch (error) {
+                console.error('Error generating ID card:', error);
+                showMessage('Failed to download ID card', 'error');
+            }
+        }
+    </script>
+</body>
+</html>
