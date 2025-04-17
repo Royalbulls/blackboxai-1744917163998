@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful - Brain Bounty Club</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../css/styles.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1A3A8C',
+                        accent: '#FFB700',
+                    },
+                    fontFamily: {
+                        montserrat: ['Montserrat', 'sans-serif'],
+                        opensans: ['Open Sans', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-opensans bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/" class="flex items-center">
+                        <span class="text-2xl">
+                            <span class="font-bold text-primary">BRAIN</span>
+                            <span class="italic text-accent">BOUNTY</span>
+                            <span class="uppercase text-primary">CLUB</span>
+                        </span>
+                    </a>
+                </div>
+                
+                <!-- Coin Balance -->
+                <div class="flex items-center">
+                    <div class="text-primary px-4 py-2 rounded-md font-medium">
+                        <i class="fas fa-coins text-accent"></i>
+                        <span id="coinBalance">0</span> BBC Coins
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Success Content -->
+    <div class="min-h-screen pt-16 flex items-center justify-center">
+        <div class="max-w-md w-full mx-auto p-8">
+            <div class="bg-white rounded-lg shadow-lg p-8 text-center animate-fadeIn">
+                <!-- Success Icon -->
+                <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-green-100 flex items-center justify-center">
+                    <i class="fas fa-check-circle text-4xl text-green-500"></i>
+                </div>
+
+                <!-- Success Message -->
+                <h1 class="text-2xl font-montserrat font-bold text-primary mb-4">
+                    Payment Successful!
+                </h1>
+                <p class="text-gray-600 mb-6">
+                    Thank you for joining Brain Bounty Club. Your membership has been activated successfully.
+                </p>
+
+                <!-- Coins Added -->
+                <div class="bg-gray-50 rounded-lg p-6 mb-8">
+                    <div class="text-accent text-4xl mb-2">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <p class="text-gray-600">
+                        <span id="coinsAdded" class="text-2xl font-bold text-primary"></span>
+                        <br>BBC Coins added to your wallet
+                    </p>
+                </div>
+
+                <!-- Next Steps -->
+                <div class="space-y-4 mb-8">
+                    <h2 class="text-xl font-montserrat font-bold text-primary">Next Steps</h2>
+                    <div class="flex items-center justify-center space-x-2 text-gray-600">
+                        <i class="fas fa-id-card text-accent"></i>
+                        <span>Generate your Digital ID Card</span>
+                    </div>
+                    <div class="flex items-center justify-center space-x-2 text-gray-600">
+                        <i class="fas fa-graduation-cap text-accent"></i>
+                        <span>Explore available courses</span>
+                    </div>
+                    <div class="flex items-center justify-center space-x-2 text-gray-600">
+                        <i class="fas fa-trophy text-accent"></i>
+                        <span>Participate in quizzes</span>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="space-y-4">
+                    <a href="/pages/profile/dashboard.html" 
+                       class="block w-full bg-primary text-white hover:bg-accent px-6 py-3 rounded-md font-medium transition duration-300">
+                        Go to Dashboard
+                    </a>
+                    <a href="/pages/profile/id-card.html" 
+                       class="block w-full bg-white text-primary border-2 border-primary hover:bg-gray-50 px-6 py-3 rounded-md font-medium transition duration-300">
+                        Generate ID Card
+                    </a>
+                </div>
+            </div>
+
+            <!-- Support Info -->
+            <div class="mt-8 text-center text-gray-600">
+                <p>Need help? Contact our support team</p>
+                <a href="mailto:support@brainbountyclub.in" class="text-accent hover:text-primary">
+                    support@brainbountyclub.in
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="../../js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get payment details from URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const coinsAdded = urlParams.get('coins') || localStorage.getItem('lastPaymentCoins') || '5000';
+            
+            // Update coins display
+            document.getElementById('coinsAdded').textContent = `+${coinsAdded}`;
+
+            // Animate coins number counting up
+            const duration = 2000;
+            const steps = 50;
+            const stepDuration = duration / steps;
+            const increment = parseInt(coinsAdded) / steps;
+            let current = 0;
+            
+            const counter = setInterval(() => {
+                current += increment;
+                if (current >= parseInt(coinsAdded)) {
+                    current = coinsAdded;
+                    clearInterval(counter);
+                }
+                document.getElementById('coinsAdded').textContent = `+${Math.floor(current)}`;
+            }, stepDuration);
+
+            // Clear stored payment data
+            localStorage.removeItem('lastPaymentCoins');
+        });
+    </script>
+</body>
+</html>
