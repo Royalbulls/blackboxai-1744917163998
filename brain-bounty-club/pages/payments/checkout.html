@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membership Plans - Brain Bounty Club</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../css/styles.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1A3A8C',
+                        accent: '#FFB700',
+                    },
+                    fontFamily: {
+                        montserrat: ['Montserrat', 'sans-serif'],
+                        opensans: ['Open Sans', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-opensans bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/" class="flex items-center">
+                        <span class="text-2xl">
+                            <span class="font-bold text-primary">BRAIN</span>
+                            <span class="italic text-accent">BOUNTY</span>
+                            <span class="uppercase text-primary">CLUB</span>
+                        </span>
+                    </a>
+                </div>
+                
+                <!-- Coin Balance -->
+                <div class="flex items-center">
+                    <div class="text-primary px-4 py-2 rounded-md font-medium">
+                        <i class="fas fa-coins text-accent"></i>
+                        <span id="coinBalance">0</span> BBC Coins
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="pt-20 pb-12">
+        <!-- Header -->
+        <div class="bg-primary text-white py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl font-montserrat font-bold mb-4">Choose Your Membership Plan</h1>
+                <p class="text-xl text-accent">Unlock premium features and earn BBC Coins</p>
+            </div>
+        </div>
+
+        <!-- Plans Section -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Basic Plan -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden hover-card">
+                    <div class="p-6">
+                        <h2 class="text-2xl font-montserrat font-bold text-primary mb-4">Basic Membership</h2>
+                        <div class="text-4xl font-bold text-accent mb-6">
+                            ₹499
+                            <span class="text-sm text-gray-500 font-normal">/month</span>
+                        </div>
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-center">
+                                <i class="fas fa-coins text-accent mr-2"></i>
+                                <span>5,000 BBC Coins</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Access to basic quizzes</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Digital ID Card</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Basic course access</span>
+                            </div>
+                        </div>
+                        <button 
+                            onclick="handlePayment('basic')"
+                            class="w-full bg-primary text-white hover:bg-accent px-6 py-3 rounded-md font-medium transition duration-300"
+                        >
+                            Get Started
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Pro Plan -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden hover-card transform scale-105 border-2 border-accent">
+                    <div class="bg-accent text-primary text-center py-2 font-bold">
+                        MOST POPULAR
+                    </div>
+                    <div class="p-6">
+                        <h2 class="text-2xl font-montserrat font-bold text-primary mb-4">Pro Membership</h2>
+                        <div class="text-4xl font-bold text-accent mb-6">
+                            ₹999
+                            <span class="text-sm text-gray-500 font-normal">/month</span>
+                        </div>
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-center">
+                                <i class="fas fa-coins text-accent mr-2"></i>
+                                <span>12,000 BBC Coins</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Access to all quizzes</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Premium Digital ID Card</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Full course library access</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Priority support</span>
+                            </div>
+                        </div>
+                        <button 
+                            onclick="handlePayment('pro')"
+                            class="w-full bg-accent text-primary hover:bg-yellow-400 px-6 py-3 rounded-md font-bold transition duration-300"
+                        >
+                            Go Pro
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Premium Plan -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden hover-card">
+                    <div class="p-6">
+                        <h2 class="text-2xl font-montserrat font-bold text-primary mb-4">Premium Membership</h2>
+                        <div class="text-4xl font-bold text-accent mb-6">
+                            ₹1,999
+                            <span class="text-sm text-gray-500 font-normal">/month</span>
+                        </div>
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-center">
+                                <i class="fas fa-coins text-accent mr-2"></i>
+                                <span>25,000 BBC Coins</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Everything in Pro</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Exclusive Digital ID Card</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>One-on-one mentoring</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Career guidance sessions</span>
+                            </div>
+                        </div>
+                        <button 
+                            onclick="handlePayment('premium')"
+                            class="w-full bg-primary text-white hover:bg-accent px-6 py-3 rounded-md font-medium transition duration-300"
+                        >
+                            Go Premium
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <h2 class="text-3xl font-montserrat font-bold text-primary text-center mb-12">
+                Why Choose Brain Bounty Club?
+            </h2>
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="text-4xl text-accent mb-4">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-primary mb-2">Quality Education</h3>
+                    <p class="text-gray-600">Expert-curated courses and quizzes</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl text-accent mb-4">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-primary mb-2">Reward System</h3>
+                    <p class="text-gray-600">Earn coins for your achievements</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl text-accent mb-4">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-primary mb-2">Community</h3>
+                    <p class="text-gray-600">Join a growing learning community</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl text-accent mb-4">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-primary mb-2">Certification</h3>
+                    <p class="text-gray-600">Earn certificates for your skills</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="payment-loading" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white p-8 rounded-lg text-center">
+            <div class="loading-spinner mx-auto mb-4"></div>
+            <p class="text-primary font-medium">Processing your payment...</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p>&copy; 2024 Brain Bounty Club. All rights reserved.</p>
+            <div class="mt-4">
+                <a href="#" class="text-accent hover:text-yellow-400">Terms & Conditions</a>
+                <span class="mx-2">|</span>
+                <a href="#" class="text-accent hover:text-yellow-400">Privacy Policy</a>
+                <span class="mx-2">|</span>
+                <a href="#" class="text-accent hover:text-yellow-400">Refund Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Razorpay SDK -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    
+    <!-- JavaScript -->
+    <script src="../../js/app.js"></script>
+    <script src="../../js/razorpay.js"></script>
+    
+    <script>
+        // Global payment handler function
+        function handlePayment(planId) {
+            console.log('Payment handler called for plan:', planId);
+            try {
+                if (!window.razorpayReady) {
+                    alert('Payment system is initializing, please try again.');
+                    return;
+                }
+                window.startPayment(planId);
+            } catch (error) {
+                console.error('Payment error:', error);
+                alert('Payment failed. Please try again.');
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('Page loaded, checking wallet...');
+            // Update coin balance display
+            if (window.bbcWallet) {
+                document.querySelectorAll('[id^="coinBalance"]').forEach(element => {
+                    element.textContent = window.bbcWallet.balance;
+                });
+            }
+        });
+    </script>
+</body>
+</html>
