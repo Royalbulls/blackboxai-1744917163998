@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BBC Coins Wallet - Brain Bounty Club</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../css/styles.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1A3A8C',
+                        accent: '#FFB700',
+                    },
+                    fontFamily: {
+                        montserrat: ['Montserrat', 'sans-serif'],
+                        opensans: ['Open Sans', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-opensans bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/" class="flex items-center">
+                        <span class="text-2xl">
+                            <span class="font-bold text-primary">BRAIN</span>
+                            <span class="italic text-accent">BOUNTY</span>
+                            <span class="uppercase text-primary">CLUB</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="pt-20 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Wallet Overview -->
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+                <div class="text-center">
+                    <h1 class="text-3xl font-montserrat font-bold text-primary mb-6">BBC Coins Wallet</h1>
+                    <div class="inline-block bg-gray-50 rounded-full p-8 mb-6">
+                        <div class="text-6xl text-accent animate-fadeIn">
+                            <i class="fas fa-coins mb-4"></i>
+                            <div class="text-5xl font-bold" id="coinBalance">0</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">Total BBC Coins Balance</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Transaction History -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h2 class="text-2xl font-montserrat font-bold text-primary mb-6">
+                        Transaction History
+                    </h2>
+                    <div class="space-y-4" id="transactionHistory">
+                        <!-- Transactions will be populated by JavaScript -->
+                        <div class="text-center text-gray-500">Loading transactions...</div>
+                    </div>
+                </div>
+
+                <!-- Rewards & Achievements -->
+                <div class="space-y-8">
+                    <!-- Available Rewards -->
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h2 class="text-2xl font-montserrat font-bold text-primary mb-6">
+                            Available Rewards
+                        </h2>
+                        <div class="space-y-4">
+                            <!-- Premium Course Access -->
+                            <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                                <div class="flex items-center space-x-4">
+                                    <div class="text-2xl text-accent">
+                                        <i class="fas fa-graduation-cap"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-primary">Premium Course Access</h3>
+                                        <p class="text-sm text-gray-600">1-month access to any premium course</p>
+                                    </div>
+                                </div>
+                                <button onclick="redeemReward('course', 5000)" class="bg-primary text-white hover:bg-accent px-4 py-2 rounded-md text-sm font-medium transition duration-300">
+                                    5000 Coins
+                                </button>
+                            </div>
+
+                            <!-- One-on-One Mentoring -->
+                            <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                                <div class="flex items-center space-x-4">
+                                    <div class="text-2xl text-accent">
+                                        <i class="fas fa-user-graduate"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-primary">One-on-One Mentoring</h3>
+                                        <p class="text-sm text-gray-600">30-minute session with an expert</p>
+                                    </div>
+                                </div>
+                                <button onclick="redeemReward('mentoring', 10000)" class="bg-primary text-white hover:bg-accent px-4 py-2 rounded-md text-sm font-medium transition duration-300">
+                                    10000 Coins
+                                </button>
+                            </div>
+
+                            <!-- Premium ID Card -->
+                            <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                                <div class="flex items-center space-x-4">
+                                    <div class="text-2xl text-accent">
+                                        <i class="fas fa-id-card"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-primary">Premium ID Card</h3>
+                                        <p class="text-sm text-gray-600">Exclusive design with special features</p>
+                                    </div>
+                                </div>
+                                <button onclick="redeemReward('idcard', 2000)" class="bg-primary text-white hover:bg-accent px-4 py-2 rounded-md text-sm font-medium transition duration-300">
+                                    2000 Coins
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Achievements -->
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h2 class="text-2xl font-montserrat font-bold text-primary mb-6">
+                            Recent Achievements
+                        </h2>
+                        <div class="grid grid-cols-2 gap-4" id="achievements">
+                            <!-- Quiz Master -->
+                            <div class="text-center p-4 bg-gray-50 rounded-lg">
+                                <div class="achievement-badge mx-auto mb-3">
+                                    <i class="fas fa-trophy"></i>
+                                </div>
+                                <h3 class="font-bold text-primary">Quiz Master</h3>
+                                <p class="text-sm text-gray-600">Complete 10 quizzes</p>
+                            </div>
+
+                            <!-- Early Bird -->
+                            <div class="text-center p-4 bg-gray-50 rounded-lg">
+                                <div class="achievement-badge mx-auto mb-3">
+                                    <i class="fas fa-sun"></i>
+                                </div>
+                                <h3 class="font-bold text-primary">Early Bird</h3>
+                                <p class="text-sm text-gray-600">First 100 members</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="../../js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize wallet
+            const wallet = new BBCWallet();
+            updateTransactionHistory();
+        });
+
+        function updateTransactionHistory() {
+            const history = JSON.parse(localStorage.getItem('bbcTransactions')) || [];
+            const historyContainer = document.getElementById('transactionHistory');
+            
+            if (history.length === 0) {
+                historyContainer.innerHTML = `
+                    <div class="text-center text-gray-500">
+                        No transactions yet
+                    </div>
+                `;
+                return;
+            }
+
+            historyContainer.innerHTML = history.map(transaction => `
+                <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg animate-fadeIn">
+                    <div>
+                        <div class="flex items-center">
+                            <span class="text-lg ${transaction.type === 'CREDIT' ? 'text-green-500' : 'text-red-500'}">
+                                ${transaction.type === 'CREDIT' ? '+' : '-'}${transaction.amount}
+                            </span>
+                            <span class="ml-2 text-gray-600">BBC Coins</span>
+                        </div>
+                        <p class="text-sm text-gray-600">${transaction.reason}</p>
+                    </div>
+                    <div class="text-sm text-gray-500">
+                        ${new Date(transaction.timestamp).toLocaleDateString()}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function redeemReward(type, cost) {
+            const rewards = {
+                course: {
+                    name: 'Premium Course Access',
+                    description: '1-month access granted to any premium course'
+                },
+                mentoring: {
+                    name: 'One-on-One Mentoring',
+                    description: '30-minute mentoring session scheduled'
+                },
+                idcard: {
+                    name: 'Premium ID Card',
+                    description: 'Premium ID card design unlocked'
+                }
+            };
+
+            const reward = rewards[type];
+            if (!reward) return;
+
+            if (window.bbcWallet.spendCoins(cost, `Redeemed ${reward.name}`)) {
+                showMessage(`Successfully redeemed ${reward.name}! ${reward.description}`, 'success');
+                updateTransactionHistory();
+            }
+        }
+    </script>
+</body>
+</html>
