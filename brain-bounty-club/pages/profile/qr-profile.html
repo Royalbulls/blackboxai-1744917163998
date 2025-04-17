@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social QR Code - Brain Bounty Club</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- QR Code Library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../css/styles.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1A3A8C',
+                        accent: '#FFB700',
+                    },
+                    fontFamily: {
+                        montserrat: ['Montserrat', 'sans-serif'],
+                        opensans: ['Open Sans', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-opensans bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/" class="flex items-center">
+                        <span class="text-2xl">
+                            <span class="font-bold text-primary">BRAIN</span>
+                            <span class="italic text-accent">BOUNTY</span>
+                            <span class="uppercase text-primary">CLUB</span>
+                        </span>
+                    </a>
+                </div>
+                
+                <!-- Coin Balance -->
+                <div class="flex items-center">
+                    <div class="text-primary px-4 py-2 rounded-md font-medium">
+                        <i class="fas fa-coins text-accent"></i>
+                        <span id="coinBalance">0</span> BBC Coins
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="pt-20 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Left Column - Social Links Form -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h2 class="text-2xl font-montserrat font-bold text-primary mb-6">
+                        Generate Your Social QR Code
+                    </h2>
+                    <form id="socialLinksForm" class="space-y-6">
+                        <!-- Social Media Links -->
+                        <div class="space-y-4">
+                            <!-- Telegram -->
+                            <div>
+                                <label class="block text-gray-700 mb-2">
+                                    <i class="fab fa-telegram text-primary"></i> Telegram
+                                </label>
+                                <div class="flex">
+                                    <span class="bg-gray-100 px-3 py-2 rounded-l-md border border-r-0">@</span>
+                                    <input type="text" id="telegram" name="telegram" 
+                                           class="flex-1 border rounded-r-md px-3 py-2 focus:outline-none focus:border-primary"
+                                           placeholder="username">
+                                </div>
+                            </div>
+
+                            <!-- Instagram -->
+                            <div>
+                                <label class="block text-gray-700 mb-2">
+                                    <i class="fab fa-instagram text-primary"></i> Instagram
+                                </label>
+                                <div class="flex">
+                                    <span class="bg-gray-100 px-3 py-2 rounded-l-md border border-r-0">@</span>
+                                    <input type="text" id="instagram" name="instagram"
+                                           class="flex-1 border rounded-r-md px-3 py-2 focus:outline-none focus:border-primary"
+                                           placeholder="username">
+                                </div>
+                            </div>
+
+                            <!-- YouTube -->
+                            <div>
+                                <label class="block text-gray-700 mb-2">
+                                    <i class="fab fa-youtube text-primary"></i> YouTube
+                                </label>
+                                <input type="url" id="youtube" name="youtube"
+                                       class="w-full border rounded-md px-3 py-2 focus:outline-none focus:border-primary"
+                                       placeholder="Channel URL">
+                            </div>
+
+                            <!-- LinkedIn -->
+                            <div>
+                                <label class="block text-gray-700 mb-2">
+                                    <i class="fab fa-linkedin text-primary"></i> LinkedIn
+                                </label>
+                                <input type="url" id="linkedin" name="linkedin"
+                                       class="w-full border rounded-md px-3 py-2 focus:outline-none focus:border-primary"
+                                       placeholder="Profile URL">
+                            </div>
+
+                            <!-- GitHub -->
+                            <div>
+                                <label class="block text-gray-700 mb-2">
+                                    <i class="fab fa-github text-primary"></i> GitHub
+                                </label>
+                                <input type="text" id="github" name="github"
+                                       class="w-full border rounded-md px-3 py-2 focus:outline-none focus:border-primary"
+                                       placeholder="username">
+                            </div>
+                        </div>
+
+                        <!-- QR Code Customization -->
+                        <div class="space-y-4">
+                            <h3 class="text-lg font-montserrat font-bold text-primary">
+                                QR Code Style
+                            </h3>
+                            
+                            <!-- Color Selection -->
+                            <div>
+                                <label class="block text-gray-700 mb-2">Color</label>
+                                <div class="flex space-x-4">
+                                    <button type="button" onclick="updateQRColor('#1A3A8C')" 
+                                            class="w-8 h-8 rounded-full bg-primary border-2 border-white shadow-md hover:scale-110 transition-transform"></button>
+                                    <button type="button" onclick="updateQRColor('#FFB700')" 
+                                            class="w-8 h-8 rounded-full bg-accent border-2 border-white shadow-md hover:scale-110 transition-transform"></button>
+                                    <button type="button" onclick="updateQRColor('#000000')" 
+                                            class="w-8 h-8 rounded-full bg-black border-2 border-white shadow-md hover:scale-110 transition-transform"></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Generate Button -->
+                        <button type="submit" class="w-full bg-primary text-white hover:bg-accent px-6 py-3 rounded-md font-medium transition duration-300">
+                            Generate QR Code
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Right Column - QR Code Preview -->
+                <div>
+                    <h2 class="text-2xl font-montserrat font-bold text-primary mb-6">
+                        QR Code Preview
+                    </h2>
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <!-- QR Code Container -->
+                        <div id="qrContainer" class="qr-container mx-auto text-center">
+                            <div id="qrCode" class="mx-auto mb-6"></div>
+                            <p class="text-gray-600 mb-6">
+                                Scan this QR code to access all your social profiles
+                            </p>
+                        </div>
+
+                        <!-- Download Options -->
+                        <div class="space-y-4">
+                            <button onclick="downloadQR('png')" class="w-full bg-accent text-primary hover:bg-yellow-400 px-6 py-3 rounded-md font-medium transition duration-300">
+                                Download as PNG
+                            </button>
+                            <button onclick="downloadQR('svg')" class="w-full border-2 border-primary text-primary hover:bg-gray-50 px-6 py-3 rounded-md font-medium transition duration-300">
+                                Download as SVG
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="../../js/app.js"></script>
+    <script>
+        let currentQRColor = '#1A3A8C';
+        let qrInstance = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('socialLinksForm');
+            
+            // Load saved social links
+            const savedLinks = JSON.parse(localStorage.getItem('socialLinks') || '{}');
+            Object.keys(savedLinks).forEach(platform => {
+                const input = document.getElementById(platform);
+                if (input) input.value = savedLinks[platform];
+            });
+
+            // Generate initial QR code
+            generateQR();
+
+            // Handle form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                generateQR();
+                showMessage('QR Code generated successfully!', 'success');
+            });
+
+            // Update QR code on input change
+            form.querySelectorAll('input').forEach(input => {
+                input.addEventListener('input', () => {
+                    generateQR();
+                });
+            });
+        });
+
+        function generateQR() {
+            const socialLinks = {
+                telegram: document.getElementById('telegram').value,
+                instagram: document.getElementById('instagram').value,
+                youtube: document.getElementById('youtube').value,
+                linkedin: document.getElementById('linkedin').value,
+                github: document.getElementById('github').value
+            };
+
+            // Save to localStorage
+            localStorage.setItem('socialLinks', JSON.stringify(socialLinks));
+
+            // Generate QR code
+            const qrContainer = document.getElementById('qrCode');
+            qrContainer.innerHTML = '';
+
+            const data = JSON.stringify(socialLinks);
+            QRCode.toCanvas(qrContainer, data, {
+                width: 256,
+                height: 256,
+                color: {
+                    dark: currentQRColor,
+                    light: '#ffffff'
+                }
+            }, function(error) {
+                if (error) {
+                    console.error(error);
+                    showMessage('Failed to generate QR code', 'error');
+                }
+            });
+        }
+
+        function updateQRColor(color) {
+            currentQRColor = color;
+            generateQR();
+        }
+
+        function downloadQR(format) {
+            const canvas = document.querySelector('#qrCode canvas');
+            if (!canvas) {
+                showMessage('Please generate a QR code first', 'error');
+                return;
+            }
+
+            try {
+                const link = document.createElement('a');
+                if (format === 'png') {
+                    link.download = 'bbc-social-qr.png';
+                    link.href = canvas.toDataURL('image/png');
+                } else if (format === 'svg') {
+                    // Convert canvas to SVG
+                    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                    const image = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+                    svg.setAttribute('width', canvas.width);
+                    svg.setAttribute('height', canvas.height);
+                    image.setAttribute('width', canvas.width);
+                    image.setAttribute('height', canvas.height);
+                    image.setAttribute('href', canvas.toDataURL('image/png'));
+                    svg.appendChild(image);
+                    
+                    const svgData = new XMLSerializer().serializeToString(svg);
+                    const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+                    link.download = 'bbc-social-qr.svg';
+                    link.href = URL.createObjectURL(svgBlob);
+                }
+                
+                link.click();
+                showMessage(`QR Code downloaded as ${format.toUpperCase()}`, 'success');
+            } catch (error) {
+                console.error('Error downloading QR code:', error);
+                showMessage('Failed to download QR code', 'error');
+            }
+        }
+    </script>
+</body>
+</html>
